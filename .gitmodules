@@ -1,0 +1,6 @@
+[submodule "libs/zlib"]
+	path = libs/zlib
+	url = https://github.com/madler/zlib.git
+[submodule "libs/gzip-hpp"]
+	path = libs/gzip-hpp
+	url = https://github.com/NewYaroslav/gzip-hpp.git
