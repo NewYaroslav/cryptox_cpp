@@ -44,8 +44,34 @@ void save_string_to_file(const std::string& file_path, const std::string& conten
     }
 }
 
+bool test_gzip_file(const std::string &input_file_name, const std::string &ouput_file_name) {
+    // Read the content of the compressed file into a string
+    std::string gzip_data = read_file_to_string(input_file_name);
+
+    // Check if the file is compressed
+    if (!gzip::is_compressed(gzip_data.c_str(), gzip_data.size())) {
+        std::cerr << "The file is not compressed." << std::endl;
+        return false;
+    }
+
+    std::cout << "Decompressing the file..." << std::endl;
+
+    // Decompress the gzip data
+    std::string decompressed_data = gzip::decompress(gzip_data);
+
+    // Save the decompressed data to a new file
+    save_string_to_file(ouput_file_name, decompressed_data);
+
+    std::cout << "Decompression successful. File saved as " << ouput_file_name << std::endl;
+    return true;
+}
+
 int main() {
     try {
+        test_gzip_file("BTCUSDT2020-03-25.csv.gz", "BTCUSDT2020-03-25.csv.gz");
+        test_gzip_file("BTCUSDT-1d-2025-01-15.zip", "BTCUSDT-1d-2025-01-15.gz");
+
+        /*
         // Read the content of the compressed file into a string
         std::string gzip_data = read_file_to_string("BTCUSDT2020-03-25.csv.gz");
 
@@ -64,6 +90,7 @@ int main() {
         save_string_to_file("BTCUSDT2020-03-25.csv", decompressed_data);
 
         std::cout << "Decompression successful. File saved as BTCUSDT2020-03-25.csv." << std::endl;
+        */
 
     } catch (const std::exception& e) {
         // Handle any errors during reading, writing, or decompression
