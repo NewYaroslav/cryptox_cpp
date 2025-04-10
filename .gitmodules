@@ -55,3 +55,6 @@
 [submodule "libs/Simple-WebSocket-Server"]
 	path = libs/Simple-WebSocket-Server
 	url = https://gitlab.com/eidheim/Simple-WebSocket-Server.git
+[submodule "libs/zlib-ng"]
+	path = libs/zlib-ng
+	url = https://github.com/zlib-ng/zlib-ng.git
