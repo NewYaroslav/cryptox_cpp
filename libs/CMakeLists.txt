@@ -68,7 +68,13 @@ install_runtime_dlls_to_bin(${CMAKE_CURRENT_LIST_DIR}/openssl-win64-v3.4.0/bin)
 
 # curl
 install_headers_to_include(curl ${CMAKE_CURRENT_LIST_DIR}/curl-8.11.0_1-win64-mingw/include/curl)
-install_static_libs_to_lib(${CMAKE_CURRENT_LIST_DIR}/curl-8.11.0_1-win64-mingw/lib)
+
+file(GLOB CURL_STATIC_LIBS "${CMAKE_CURRENT_LIST_DIR}/curl-8.11.0_1-win64-mingw/lib/*.a")
+# Удаляем libssl.a и libcrypto.a
+list(FILTER CURL_STATIC_LIBS EXCLUDE REGEX ".*libssl.a$")
+list(FILTER CURL_STATIC_LIBS EXCLUDE REGEX ".*libcrypto.a$")
+install_lib_files_to_lib(${CURL_STATIC_LIBS})
+# install_static_libs_to_lib(${CMAKE_CURRENT_LIST_DIR}/curl-8.11.0_1-win64-mingw/lib)
 install_runtime_dlls_to_bin(${CMAKE_CURRENT_LIST_DIR}/curl-8.11.0_1-win64-mingw/bin)
 
 # header-only
